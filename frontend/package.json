@@ -1,0 +1,62 @@
+{
+  "name": "login-register-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.8.1",
+    "delay": "^4.2.0",
+    "node-sass": "^5.0.0",
+    "react": "^16.8.6",
+    "react-cookie": "^4.0.3",
+    "react-dom": "^16.8.6",
+    "react-google-button": "^0.7.2",
+    "react-google-login": "^5.2.2",
+    "react-languages-select": "^1.0.20",
+    "react-native-google-signin": "^2.1.1",
+    "react-pose": "^4.0.8",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3",
+    "react-scroll-to-bottom": "^4.1.0",
+    "react-spring": "^8.0.20",
+    "react-uuid": "^1.0.2",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.3",
+    "socket.io-client": "^4.0.0",
+    "universal-cookie": "^4.0.4",
+    "web-vitals": "^1.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "node-sass": "^4.14.1",
+    "react-social-login-buttons": "^3.1.2"
+  }
+}
