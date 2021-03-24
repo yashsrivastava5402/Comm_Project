@@ -82,15 +82,15 @@ module.exports = async (socket) => {
             }
         });
         socket.on('typing', async (data, callback) => {
-            const { Message, email1, email2 } = data;
-            const chatObj = {
-                Message,
-                textedUserName: email1,
-                receivedUserName: email2,
-                room: [email1, email2],
-                time: Date.now()
-            };
-            await socket.to(email2).emit('typing', chatObj);
+            const { usertyping, userlistening } = data;
+            // const chatObj = {
+            //     Message,
+            //     textedUserName: email1,
+            //     receivedUserName: email2,
+            //     room: [email1, email2],
+            //     time: Date.now()
+            // };
+            await io.to(userlistening).emit('typing', data);
             if(callback){
                 callback(data);
             }
