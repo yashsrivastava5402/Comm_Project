@@ -7,14 +7,15 @@ import ScrollToBottom from "react-scroll-to-bottom";
 const Chat = (props) => {
 
   console.log(props.chatData)
-  const [chatdata, setchatData] = useState([...props.chatData]);
- 
-
-  let Chats=[];
   
-chatdata.forEach((chatObj)=>{
+ 
+  
+  var Chats=[];
+  
+  props.chatData.forEach((chatObj)=>{
 if(chatObj.textedUserEmail===props.selectedUser.email || chatObj.receivedUserEmail===props.selectedUser.email)
    Chats.push(chatObj);
+   
 })
 
     const mymail = JSON.parse(sessionStorage.getItem("User")).email;
@@ -24,9 +25,9 @@ if(chatObj.textedUserEmail===props.selectedUser.email || chatObj.receivedUserEma
     return (
 
 
-        <div className="chat-section">
+        <ScrollToBottom className="chat-section">
             
-      {props.chatData.map((chatObj,index) => {
+      {Chats.map((chatObj,index) => {
         return <div
           key={index}
           className={`chat ${chatObj.textedUserEmail === mymail ? "me" : "you"}`}
@@ -41,7 +42,7 @@ if(chatObj.textedUserEmail===props.selectedUser.email || chatObj.receivedUserEma
    
                 
 
-        </div>
+        </ScrollToBottom>
 
 
     )
