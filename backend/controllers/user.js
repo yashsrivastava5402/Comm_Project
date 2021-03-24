@@ -144,12 +144,10 @@ exports.getUsersList = async (req, res) => {
                             console.log(err);
                         } else if(!foundChat){
                             flag = 1;
-                            console.log("HI!");
                             res.status(200).send(User);
                         }
                     });
                     if(flag === 0){
-                        console.log("HI!!");
                         res.status(200).send('');
                     }
                 });
@@ -171,7 +169,6 @@ exports.getUsersList = async (req, res) => {
                 // res.status(200).send(foundUser[0]);
                 // i = i + 1;
             } else {
-                console.log("HI!!!");
                 res.status(200).send('');
             }
         });

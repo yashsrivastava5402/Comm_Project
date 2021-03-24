@@ -37,50 +37,55 @@ exports.findChat = async (req, res) => {
 exports.getPreviousUsers = async (req, res) => {
     try {
         const { email } = req.body;
-        let userArray = [];
+        // var userArray = [];
         await Chat.find({$or:[{textedUserEmail: email},{receivedUserEmail: email}]}, (err, chats) => {
             if (err) {
                 res.status(500).send(err);
             } else {
-                let length = chats.length;
-                let z = 0;
+                // let length = chats.length;
+                // let z = 0;
                 chats.forEach( async (chat) => {
                     //userArray.push(chat.receivedUserName);
-                    await User.findOne({$or:[{email: chat.receivedUserEmail},{email: chat.textedUserEmail}]}, (err, foundUser) => {
+                    await User.find({$or:[{email: chat.receivedUserEmail},{email: chat.textedUserEmail}]}, (err, users) => {
                         if(err){
                             console.log(err);
                         }else{
-                            z++;
-                            // console.log(z);
-                            // console.log(length);
-                            if(foundUser.email !== email){
-                                var flag = 0;
-                                // let obj = userArray[z-1];
-                                // console.log(obj);
-                                for(var i = 0; i < userArray.length; i++){
-                                    if(foundUser.email === userArray[i].email){
-                                        //console.log(userArray[i]);
-                                        flag = 1;
-                                        break;
-                                    }
-                                }
-                                if(flag === 0){
-                                    userArray.push(foundUser);
-                                }
-                                // console.log(userArray[0]);
-                            }
-                            if(z === length){
-                                console.log(userArray);
-                                res.status(200).send(userArray);
-                            }
+                            // z++;
+                            // // console.log(z);
+                            // // console.log(length);
+                            // if(foundUser.email !== email){
+                            //     var flag = 0;
+                            //     // let obj = userArray[z-1];
+                            //     // console.log(obj);
+                            //     for(var i = 0; i < userArray.length; i++){
+                            //         if(foundUser.email === userArray[i].email){
+                            //             //console.log(userArray[i]);
+                            //             flag = 1;
+                            //             break;
+                            //         }
+                            //     }
+                            //     if(flag === 0){
+                            //         userArray.push(foundUser);
+                            //     }
+                            //     // console.log(userArray[0]);
+                            // }
+                            // if(z === length){
+                            //     console.log(userArray);
+                            //     res.status(200).send(userArray);
+                            // }
                             //console.log(userArray);
-                        }
-                    });
+                            var filteredUsers = users.filter((value, index, users) => { 
+                                return value.email !== email;
+                        });
+                        console.log(filteredUsers);
+                        res.status(200).send(filteredUsers);
+                    }
                 });
+            });
                 //console.log(userArray);
                 // res.status(200).send(userArray);
             }
-        })
+        });
     } catch (err) {
         console.log(err);
     }
