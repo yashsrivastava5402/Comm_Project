@@ -74,7 +74,7 @@ module.exports = async (socket) => {
                 room: [email1, email2],
                 time
             };
-            await io.to(email2).emit('send-msg', data);
+            await io.to(receivedUserEmail).emit('send-msg', data);
             await saveChat(chatObj);
             if(callback){
                 //console.log(data);
