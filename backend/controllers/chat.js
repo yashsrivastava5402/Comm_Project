@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Chat = require('../models/chat');
+const user = require("../models/user");
 
 exports.findChat = async (req, res) => {
     try {
@@ -11,7 +12,6 @@ exports.findChat = async (req, res) => {
             }
             else {
                 res.status(200).send(chats);
-
             }
         });
     } catch (err) {
@@ -37,20 +37,20 @@ exports.findChat = async (req, res) => {
 exports.getPreviousUsers = async (req, res) => {
     try {
         const { email } = req.body;
-        // var userArray = [];
+        const userArray = [];
         await Chat.find({$or:[{textedUserEmail: email},{receivedUserEmail: email}]}, (err, chats) => {
             if (err) {
                 res.status(500).send(err);
             } else {
-                // let length = chats.length;
-                // let z = 0;
+                let length = chats.length;
+                let z = 0;
                 chats.forEach( async (chat) => {
                     //userArray.push(chat.receivedUserName);
                     await User.find({$or:[{email: chat.receivedUserEmail},{email: chat.textedUserEmail}]}, (err, users) => {
                         if(err){
                             console.log(err);
                         }else{
-                            // z++;
+                             z++;
                             // // console.log(z);
                             // // console.log(length);
                             // if(foundUser.email !== email){
@@ -73,14 +73,39 @@ exports.getPreviousUsers = async (req, res) => {
                             //     console.log(userArray);
                             //     res.status(200).send(userArray);
                             // }
-                            //console.log(userArray);
-                            var filteredUsers = users.filter((value) => value.email !== email);
-                        console.log(filteredUsers);
-                        res.status(200).send(filteredUsers);
+                            // console.log(userArray);
+                        // var filteredUsers = users.filter((value) => {return value.email !== email});
+                        // console.log(filteredUsers);
+                        // res.status(200).send(filteredUsers);
+                        //console.log(users);
+                        //res.status(200).send(users);
+                        users.forEach(async (foundUser) => {
+                             if(foundUser.email !== email){
+                                var flag = 0;
+                                // let obj = userArray[z-1];
+                                // console.log(obj);
+                                for(var i = 0; i < userArray.length; i++){
+                                    if(foundUser.email === userArray[i].email){
+                                        //console.log(userArray[i]);
+                                        flag = 1;
+                                        break;
+                                    }
+                                }
+                                if(flag === 0){
+                                    userArray.push(foundUser);
+                                }
+                                // console.log(userArray[0]);
+                            }
+                        });
+                        if(z === length){
+                                console.log(userArray);
+                                res.status(200).send(userArray);
+                        }
                     }
                 });
             });
-                //console.log(userArray);
+
+                // console.log(userArray);
                 // res.status(200).send(userArray);
             }
         });

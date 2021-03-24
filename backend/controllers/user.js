@@ -148,6 +148,7 @@ exports.getUsersList = async (req, res) => {
                         }
                     });
                     if(flag === 0){
+                        console.log('bye');
                         res.status(200).send('');
                     }
                 });
@@ -169,6 +170,7 @@ exports.getUsersList = async (req, res) => {
                 // res.status(200).send(foundUser[0]);
                 // i = i + 1;
             } else {
+                console.log('byebye');
                 res.status(200).send('');
             }
         });
