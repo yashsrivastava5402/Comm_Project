@@ -47,7 +47,7 @@ module.exports = async (socket) => {
             }
         });
         socket.on('send-msg', async (data, callback) => {
-            const { Message, textedUserEmail, receivedUserEmail, username1, username2, time } = data;
+            const { Message, textedUserEmail, receivedUserEmail, textedUserName, receivedUserName, time } = data;
             // var textedUserName;
             // var receivedUserName;
             // await User.findOne({email: email1}, (err, foundUser) => {
@@ -69,9 +69,9 @@ module.exports = async (socket) => {
                 Message,
                 textedUserEmail,
                 receivedUserEmail,
-                textedUserName: username1,
-                receivedUserName: username2,
-                room: [email1, email2],
+                textedUserName,
+                receivedUserName,
+                room: [textedUserEmail, receivedUserEmail],
                 time
             };
             await io.to(receivedUserEmail).emit('send-msg', data);
