@@ -26,7 +26,7 @@ if(chatObj.textedUserEmail===props.selectedUser.email || chatObj.receivedUserEma
 
         <div className="chat-section">
             
-      {Chats.map((chatObj,index) => {
+      {props.chatData.map((chatObj,index) => {
         return <div
           key={index}
           className={`chat ${chatObj.textedUserEmail === mymail ? "me" : "you"}`}
