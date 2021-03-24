@@ -17,7 +17,7 @@ const ChatForm =(props)=>{
     e.preventDefault();
     if(message!='')
     {
-      const msgObj={"Message":message,"email1":curruser.email,"email2":props.selectedUser.email,"username1":curruser.username,"username2":props.selectedUser.username,"time": Date.now()};
+      const msgObj={"Message":message,"textedUserEmail":curruser.email,"receivedUserEmail":props.selectedUser.email,"textedUserName":curruser.username,"receivedUserName":props.selectedUser.username,"time": Date.now()};
       console.log(msgObj);
       props.updateChat(msgObj);
       props.chatsocks(msgObj);

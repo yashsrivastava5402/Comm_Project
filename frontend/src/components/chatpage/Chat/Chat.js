@@ -1,31 +1,38 @@
 import "./Chat.scss";
 import uuid from 'react-uuid'
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import ScrollToBottom from "react-scroll-to-bottom";
 
 
 const Chat = (props) => {
-  console.log(props.chatData);
-let chatdata=[];
-props.chatData.forEach((chatObj)=>{
-if(chatObj.email1===props.selectedUser.email || chatObj.email2===props.selectedUser.email)
-   chatdata.push(chatObj);
+
+  console.log(props.chatData)
+  const [chatdata, setchatData] = useState([...props.chatData]);
+ 
+
+  let Chats=[];
+  
+chatdata.forEach((chatObj)=>{
+if(chatObj.textedUserEmail===props.selectedUser.email || chatObj.receivedUserEmail===props.selectedUser.email)
+   Chats.push(chatObj);
 })
 
     const mymail = JSON.parse(sessionStorage.getItem("User")).email;
+    console.log(Chats);
+    
 
     return (
 
 
         <div className="chat-section">
             
-      {chatdata.map((chatObj,index) => {
+      {Chats.map((chatObj,index) => {
         return <div
           key={index}
-          className={`chat ${chatObj.email1 === mymail ? "me" : "you"}`}
+          className={`chat ${chatObj.textedUserEmail === mymail ? "me" : "you"}`}
         >
           
-            <span className="name">{chatObj.username1}</span>
+            <span className="name">{chatObj.textedUserName}</span>
          
           <p className="msg">{chatObj.Message}</p>
           <span className="time">{chatObj.time}</span>
