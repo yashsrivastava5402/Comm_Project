@@ -10,6 +10,7 @@ const ChatCardsListing = (props) => {
   const [prevUsers, setprevUsers] = useState([]);
   useEffect(() => {
     setnewuser(props.newuser);
+    if(props.prevUsers!==null)
     setprevUsers(props.prevUsers);
     
   }, []);
