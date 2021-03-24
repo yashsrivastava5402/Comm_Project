@@ -4,20 +4,16 @@ const Chat = require('../models/chat');
 exports.findChat = async (req, res) => {
     try {
         //res.send("Connected!");
-        console.log("hi");
-        {
         const { email1, email2 } = req.body;
-        await Chat.find({ room: { $all: [email1, email2] } }), (err, chats) => {
+        await Chat.find({$or:[{textedUserEmail: email1, receivedUserEmail: email2},{textedUserEmail: email2, receivedUserEmail: email1}]}, (err, chats) => {
             if (err) {
-                return res.status(400).send(err);
+                res.status(400).send(err);
             }
             else {
-                console.log(chats);
-                return res.status(200).send(chats.toArray());
+                res.status(200).send(chats);
 
             }
-        }
-    }
+        });
     } catch (err) {
         console.log(err);
     }
@@ -50,20 +46,34 @@ exports.getPreviousUsers = async (req, res) => {
                 let z = 0;
                 chats.forEach( async (chat) => {
                     //userArray.push(chat.receivedUserName);
-                    await User.findOne({email: chat.receivedUserEmail}, (err, foundUser) => {
+                    await User.findOne({$or:[{email: chat.receivedUserEmail},{email: chat.textedUserEmail}]}, (err, foundUser) => {
                         if(err){
                             console.log(err);
                         }else{
                             z++;
-                            console.log(z);
-                            console.log(length);
+                            // console.log(z);
+                            // console.log(length);
                             if(foundUser.email !== email){
-                                userArray.push(foundUser);
+                                var flag = 0;
+                                // let obj = userArray[z-1];
+                                // console.log(obj);
+                                for(var i = 0; i < userArray.length; i++){
+                                    if(foundUser.email === userArray[i].email){
+                                        //console.log(userArray[i]);
+                                        flag = 1;
+                                        break;
+                                    }
+                                }
+                                if(flag === 0){
+                                    userArray.push(foundUser);
+                                }
+                                // console.log(userArray[0]);
                             }
                             if(z === length){
+                                console.log(userArray);
                                 res.status(200).send(userArray);
                             }
-                            console.log(userArray);
+                            //console.log(userArray);
                         }
                     });
                 });
