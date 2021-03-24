@@ -83,10 +83,10 @@ function ChatPage(props) {
       )
       .then((response) => {
         console.log(response.data);
-        if (response.data !== null) {
+        
           setprevUsers(response.data);
           sessionStorage.setItem("prevUsers", JSON.stringify(response.data));
-        }
+        
       })
 
       .catch((error) => {
@@ -124,16 +124,17 @@ function ChatPage(props) {
   //click to select user
 
   const handleClick = async (Suser) => {
-    await setselectedUser(Suser);
-    console.log(Suser);
+    await setselectedUser(Suser,()=>{console.log(Suser);});
+    
+    await sessionStorage.setItem("selecteduser",JSON.stringify(Suser));
+    
     await axios
       .post("http://localhost:5000/findChat", {
         email1: JSON.parse(sessionStorage.getItem("User")).email,
-        email2: selectedUser.email,
+        email2: selectedUser.email
       })
       .then((res) => {
-        setchatData(res.data);
-        console.log(res.data);
+        setchatData(res.data);   
       })
       .catch((err) => {
         console.log(err);

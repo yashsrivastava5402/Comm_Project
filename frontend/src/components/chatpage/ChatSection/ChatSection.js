@@ -8,7 +8,7 @@ import React, {useRef,useEffect} from 'react'
 
 const ChatSection = (props) => {
   
-
+console.log(props.chatData)
 	// const onTextChange = (e) => {
 	// 	setState({ ...state, [e.target.name]: e.target.value })
 	// }

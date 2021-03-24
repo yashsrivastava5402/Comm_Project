@@ -5,6 +5,7 @@ import { faChevronDown, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./ChatCardsListing.scss";
 const ChatCardsListing = (props) => {
   const [newuser, setnewuser] = useState("");
+  console.log(props.prevUsers.username);
 
   const [prevUsers, setprevUsers] = useState([]);
   useEffect(() => {
