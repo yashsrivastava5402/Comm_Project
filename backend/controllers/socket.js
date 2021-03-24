@@ -47,7 +47,7 @@ module.exports = async (socket) => {
             }
         });
         socket.on('send-msg', async (data, callback) => {
-            const { Message, email1, email2, username1, username2, time } = data;
+            const { Message, textedUserEmail, receivedUserEmail, username1, username2, time } = data;
             // var textedUserName;
             // var receivedUserName;
             // await User.findOne({email: email1}, (err, foundUser) => {
@@ -67,8 +67,8 @@ module.exports = async (socket) => {
             // await console.log(textedUserName);
             const chatObj = {
                 Message,
-                textedUserEmail: email1,
-                receivedUserEmail: email2,
+                textedUserEmail,
+                receivedUserEmail,
                 textedUserName: username1,
                 receivedUserName: username2,
                 room: [email1, email2],
