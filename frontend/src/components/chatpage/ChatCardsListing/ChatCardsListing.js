@@ -57,11 +57,11 @@ const ChatCardsListing = (props) => {
     <div className="chat-cards-listing">
     {render}
       {prevUsers !== null && prevUsers !== "" ?
-        prevUsers.map((user, index) => {
-        return<div
+         prevUsers.map((user, index) => {
+       return <div
           key={index}
-          onClick={() => {
-            props.handleClick(user);
+          onClick={async () => {
+            await props.handleClick(user);
             console.log("hi");
           }}
           className="card"

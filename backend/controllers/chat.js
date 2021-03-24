@@ -74,9 +74,7 @@ exports.getPreviousUsers = async (req, res) => {
                             //     res.status(200).send(userArray);
                             // }
                             //console.log(userArray);
-                            var filteredUsers = users.filter((value, index, users) => { 
-                                return value.email !== email;
-                        });
+                            var filteredUsers = users.filter((value) => value.email !== email);
                         console.log(filteredUsers);
                         res.status(200).send(filteredUsers);
                     }
