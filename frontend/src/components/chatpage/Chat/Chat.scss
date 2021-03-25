@@ -1,6 +1,9 @@
+@import '../../variables';
+
+
 .chat-section{
     flex: 1;
-    background: #e5ddd5;
+    background: $color-primary-2;
     padding: 20px 20px;
     overflow-y: scroll;
     .chat{
@@ -38,25 +41,53 @@
             margin-right: 10%;
             font-size: 14px;
             left: 15px;
+            background: #a094e4;
+            color: $color-text-0;
+            .name{
+                font-size: 12px;
+                font-weight: 500;
+                color: $color-primary-4;
+
+            }
+            .msg{
+                color: $color-primary-4;
+                font-size: 15px;
+            }
+            .time{
+                color: $color-primary-4;
+                font-size: 10px;
+
+            }
             &::after{
                 left: -12px;
                 right: auto;
-                border-color: #fff transparent transparent transparent;
+                border-color: #a094e4 transparent transparent transparent;
             }
-            .name{
-                font-weight: 500;
-                color: #ff0000;
-            }
+
+            
         }
         &.me{
             float: right;
             margin-left: 10%;
-            background: #dbf8c6;
-            right: 15px;
+            background: $color-primary-1;
+            color: $color-text-0;
+            .name{
+                font-size: 12px;
+
+            }
+            .msg{
+                color: #fff;
+                font-size: 15px;
+            }
+            .time{
+                color: $color-text-0;
+                font-size: 10px;
+
+            }
             &::after{
                 left: auto;
                 right: -12px;
-                border-color: #dbf8c6 transparent transparent transparent;
+                border-color: $color-primary-1 transparent transparent transparent;
             }
         }
     }
