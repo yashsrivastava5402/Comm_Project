@@ -51,9 +51,25 @@ function ChatPage(props) {
     socket.on("send-msg", (chatObj) => {
       setchatData([...chatData, chatObj]);
     });
+   
 
-    return () => socket.off("send-msg");
+     return () => socket.off("send-msg");
   }, [socket]);
+ 
+
+
+  useEffect(() => {
+  
+    socket.on("typing", async (data) => {
+      await settyping(data);
+      console.log(data); 
+      setTimeout(function(){
+        settyping("");
+     }, 2000);//wait 2 seconds
+    });
+    // return () => socket.off("typing");
+  }, [socket]);
+
 
   const chatsocks = (chatObj) => {
     socket.emit("send-msg", chatObj, (cbData) => {
@@ -124,7 +140,7 @@ function ChatPage(props) {
   //click to select user
 
   const handleClick = async (Suser) => {
-    await setselectedUser(Suser,()=>{console.log(Suser);});
+    await setselectedUser(Suser);
     
     await sessionStorage.setItem("selecteduser",JSON.stringify(Suser));
     
@@ -140,6 +156,15 @@ function ChatPage(props) {
         console.log(err);
       });
   };
+const[typing,settyping]=useState("");
+//handle typing
+const handletyping=()=>{
+  socket.emit("typing",{"usertyping":currentuser,"userlistening":selectedUser},(cbData)=>{
+    console.log(cbData);
+  })
+
+}
+
 
   return (
     <div className="Chatpage">
@@ -153,6 +178,7 @@ function ChatPage(props) {
           handleClick={handleClick}
           newuser={newuser}
           prevUsers={prevUsers}
+          typing={typing}
         />
       </div>
       <div className="right-side">
@@ -161,6 +187,7 @@ function ChatPage(props) {
           chatData={chatData}
           selectedUser={selectedUser}
           chatsocks={chatsocks}
+          handletyping={handletyping}
         />
       </div>
     </div>

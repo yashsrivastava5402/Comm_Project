@@ -13,6 +13,11 @@ const ChatForm =(props)=>{
 
   const curruser=JSON.parse(sessionStorage.getItem("User"));
 
+  const fun=(e)=>{
+    setMessage(e.target.value);
+    props.handletyping();
+  }
+
   const handlesubmitform=(e)=>{
     e.preventDefault();
     if(message!='')
@@ -48,7 +53,7 @@ const ChatForm =(props)=>{
         className="chat-input"
         placeholder="message"
         value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={(e) => fun(e)}
         />
         <MicIcon  />
       

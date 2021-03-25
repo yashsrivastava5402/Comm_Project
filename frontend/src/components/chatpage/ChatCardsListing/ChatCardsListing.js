@@ -5,7 +5,6 @@ import { faChevronDown, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./ChatCardsListing.scss";
 const ChatCardsListing = (props) => {
   const [newuser, setnewuser] = useState("");
-  console.log(props.prevUsers.username);
 
   const [prevUsers, setprevUsers] = useState([]);
   useEffect(() => {
@@ -78,7 +77,7 @@ const ChatCardsListing = (props) => {
           </div>
           <div className="card-detail">
             <h4 className="title">{user.username}</h4>
-            <p className="desc">Hi! Shaurya</p>
+            <p className="desc">{(props.typing!=="" && props.typing.email===user.email)?<i style={{ color: "#a7a7a7" }}>typing</i>:null}</p>
           </div>
           <div className="time">{user.UpdatedAt}</div>
           <div className="action-btn">

@@ -81,8 +81,9 @@ module.exports = async (socket) => {
                 callback(data);
             }
         });
-        socket.on('typing', async (data, callback) => {
-            const { usertyping, userlistening } = data;
+        socket.on('typing',async  (data, callback) => {
+            const userlistening = data.userlistening;
+            console.log(userlistening);
             // const chatObj = {
             //     Message,
             //     textedUserName: email1,
@@ -90,7 +91,7 @@ module.exports = async (socket) => {
             //     room: [email1, email2],
             //     time: Date.now()
             // };
-            await io.to(userlistening).emit('typing', data);
+             await io.to(userlistening.email).emit('typing', data.usertyping);
             if(callback){
                 callback(data);
             }
