@@ -77,7 +77,7 @@ const ChatCardsListing = (props) => {
           </div>
           <div className="card-detail">
             <h4 className="title">{user.username}</h4>
-            <p className="desc">{(props.typing!=="" && props.typing.email===user.email)?<i style={{ color: "#a7a7a7" }}>typing</i>:null}</p>
+            <p className="desc">{(props.typing!=="" && props.typing.email===user.email)?<i style={{ color: "00FFFF" }}>typing</i>:null}</p>
           </div>
           <div className="time">{user.UpdatedAt}</div>
           <div className="action-btn">
