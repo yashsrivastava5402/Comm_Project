@@ -1,14 +1,18 @@
+@import '../../variables';
+
+
 .search{
     min-height: 49px;
-    background: #f6f6f6;
+    background: $color-primary-0;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     .icon-block{
         position: absolute;
+        margin-left: 20px;
         left: 30px;
-        color: #919191;
+        color: $color-text-0;
         font-size: 14px;
     }
     input{
@@ -19,6 +23,7 @@
         padding-left: 50px;
         outline: none;
         font-size: 16px;
-        color: #919191;
+        color: #cfcae0 !important;
+        background-color: $color-primary-1;
     }
 }

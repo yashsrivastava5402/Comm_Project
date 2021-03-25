@@ -1,8 +1,11 @@
+@import '../../variables';
+
+
 .profile-section{
     display: flex;
     align-items:center;
     justify-content: space-between;
-    background: #ededed;
+    background: $color-primary-0;
     min-height: 59px;
     padding: 0 15px;
     .img-container{
