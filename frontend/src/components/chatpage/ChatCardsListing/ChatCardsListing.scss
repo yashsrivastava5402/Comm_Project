@@ -22,7 +22,7 @@
             align-items: center;
             justify-content: center;
             font-size: 25px;
-            color: #555;
+            color: $color-text-0;
             img{
                 width: 100%;
                 height: 100%;
@@ -61,11 +61,11 @@
         font-weight: 500;
         margin: 0;
         margin-bottom: 5px;
-        color: #333;
+        color: $color-text-0;
     }
     .desc{
         margin: 0;
-        color: #00000099;
+        color: $color-text-0;
         font-size: 15px;
     }
 }
