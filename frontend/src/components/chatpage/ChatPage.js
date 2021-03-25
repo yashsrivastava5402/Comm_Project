@@ -60,14 +60,14 @@ function ChatPage(props) {
 
   useEffect(() => {
   
-    socket.on("typing", async (data) => {
-      await settyping(data);
+    socket.on("typing",  (data) => {
+      settyping(data);
       console.log(data); 
       setTimeout(function(){
         settyping("");
      }, 2000);//wait 2 seconds
     });
-    // return () => socket.off("typing");
+     return () => socket.off("typing");
   }, [socket]);
 
 
