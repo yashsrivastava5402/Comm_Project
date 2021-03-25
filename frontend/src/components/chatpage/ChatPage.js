@@ -173,6 +173,12 @@ const handletyping=()=>{
           handlelogout={handlelogout}
           handlesearchuser={handlesearchuser}
         />
+        <div style={{display:'flex',flexDirection:'row'}}>
+        <button class="circular ui  primary basic icon button" style={{width:"20em"}}>
+        <i class="redo icon"></i>
+        </button>
+        <button class="ui primary basic button" style={{width:"20em",borderRadius:'10rem'}}>Update Language</button>
+        </div>
         <SearchPeople />
         <ChatCardsListing
           handleClick={handleClick}
