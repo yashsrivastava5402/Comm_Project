@@ -23,7 +23,7 @@ console.log(props.chatData)
 
   return (
     <>
-      <ChatHeader />
+      <ChatHeader {...props}/>
       <Chat {...props} />
       <ChatForm {...props}/>
     </>

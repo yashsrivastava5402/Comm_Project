@@ -43,6 +43,9 @@ function ChatPage(props) {
   });
 
 
+  const [recentuser,setrecentuser]=useState("");
+
+
   //handleprevUsers();
 
   useEffect(() => {
@@ -50,12 +53,21 @@ function ChatPage(props) {
 
     socket.on("send-msg", (chatObj) => {
       setchatData([...chatData, chatObj]);
+      const sendermail=chatObj.textedUserEmail;
+      if(!prevUsers.filter(user=>{return user.email===sendermail}) && !newuser.filter(user=>{return user.email===sendermail}))
+          setrecentuser({"username":chatObj.textedUserName,"email":chatObj.textedUserEmail,"UpdatedAt":chatObj.time});
+
+
     });
    
 
      return () => socket.off("send-msg");
   }, [socket]);
- 
+
+
+ useEffect(()=>{
+  setrecentuser("");
+ },[prevUsers])
 
 
   useEffect(() => {
@@ -171,10 +183,10 @@ const handletyping=()=>{
       <div className="left-side">
         <ProfileSection
           handlelogout={handlelogout}
-          handlesearchuser={handlesearchuser}
+          currentuser={currentuser}
         />
         <div style={{display:'flex',flexDirection:'row'}}>
-        <button class="circular ui  primary basic icon button" style={{width:"20em"}}>
+        <button onClick={()=>{handlesearchuser()}} class="circular ui  primary basic icon button" style={{width:"20em"}}>
         <i class="redo icon"></i>
         </button>
         <button class="ui primary basic button" style={{width:"20em",borderRadius:'10rem'}}>Update Language</button>
@@ -185,10 +197,12 @@ const handletyping=()=>{
           newuser={newuser}
           prevUsers={prevUsers}
           typing={typing}
+          recentuser={recentuser}
         />
       </div>
       <div className="right-side">
         <ChatSection
+        
           updateChat={updateChat}
           chatData={chatData}
           selectedUser={selectedUser}

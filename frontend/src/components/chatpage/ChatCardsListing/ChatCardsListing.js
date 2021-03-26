@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
+import moment from 'moment'
 
 import { faChevronDown, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./ChatCardsListing.scss";
@@ -15,7 +16,35 @@ const ChatCardsListing = (props) => {
   }, []);
 
   let render=null;
+let recentuser=null;
+if(props.recentuser!=="")
+{
+  recentuser=<div
+ 
+  onClick={async () => {
+    await props.handleClick(props.recentuser);
+    console.log("hi");
+  }}
+  className="card"
+>
+  <div className="img-container">
+    <img
+      alt="image"
+      src="https://venturebeat.com/wp-content/uploads/2018/09/ironman.jpg?fit=1920%2C1376&strip=all"
+    />
 
+    <FontAwesomeIcon className="icon-block" icon={faUser} />
+  </div>
+  <div className="card-detail">
+    <h4 className="title">{props.recentuser.username}</h4>
+    <p className="desc">{(props.typing!=="" && props.typing.email===props.recentuser.email)?<i style = {{color:"#00ffff"}}>typing</i>:null}</p>
+  </div>
+  <div className="time">{moment(props.recentuser.UpdatedAt).format("ddd")} , {moment(props.recentuser.UpdatedAt).format("LT")}</div>
+  <div className="action-btn">
+    <FontAwesomeIcon icon={faChevronDown} />
+  </div>
+</div>
+}
  
   if((sessionStorage.getItem("search")==="true")  && (newuser === ""||newuser === null))
   {
@@ -56,6 +85,7 @@ const ChatCardsListing = (props) => {
 
   return (
     <div className="chat-cards-listing">
+    {recentuser}
     {render}
       {prevUsers !== null && prevUsers !== "" ?
          prevUsers.map((user, index) => {
@@ -79,7 +109,7 @@ const ChatCardsListing = (props) => {
             <h4 className="title">{user.username}</h4>
             <p className="desc">{(props.typing!=="" && props.typing.email===user.email)?<i style = {{color:"#00ffff"}}>typing</i>:null}</p>
           </div>
-          <div className="time">{user.UpdatedAt}</div>
+          <div className="time">{moment(user.UpdatedAt).format("ddd")} , {moment(user.UpdatedAt).format("LT")}</div>
           <div className="action-btn">
             <FontAwesomeIcon icon={faChevronDown} />
           </div>

@@ -2,6 +2,7 @@ import "./Chat.scss";
 import uuid from 'react-uuid'
 import React, {useState,useEffect} from 'react'
 import ScrollToBottom from "react-scroll-to-bottom";
+import moment from 'moment'
 
 
 const Chat = (props) => {
@@ -36,7 +37,7 @@ if(chatObj.textedUserEmail===props.selectedUser.email || chatObj.receivedUserEma
             <span className="name">{chatObj.textedUserName}</span>
          
           <p className="msg">{chatObj.Message}</p>
-          <span className="time">{chatObj.time}</span>
+          <span className="time">{moment(chatObj.time).format("ddd")} , {moment(chatObj.time).format("LT")}</span>
         </div>;
       })}
    

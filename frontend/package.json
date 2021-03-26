@@ -12,6 +12,7 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
     "delay": "^4.2.0",
+    "moment": "^2.29.1",
     "node-sass": "^5.0.0",
     "react": "^16.8.6",
     "react-cookie": "^4.0.3",

@@ -4,7 +4,7 @@ import React from 'react'
 
 import './ChatHeader.scss';
 
-const ChatHeader = () => {
+const ChatHeader = (props) => {
  
   return (
     <div className="chat-header">
@@ -13,7 +13,7 @@ const ChatHeader = () => {
         <FontAwesomeIcon className="icon-block" icon={faUser} /> 
       </div>
       <div className="card-detail">
-          <h4 className="title">Shaurya</h4>
+          <h4 className="title">{props.selectedUser.username}</h4>
           <p className="desc">
            Online
           </p>
