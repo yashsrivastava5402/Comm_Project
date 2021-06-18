@@ -5,11 +5,12 @@ const mongoose = require('mongoose');
 const socket = require('socket.io');
 const cors = require('cors');
 const routes = require('./routes/routes');
+const morgan=require('morgan');
 
 const app = express();
 const server = http.createServer(app);
 const io = module.exports.io = socket(server);
-
+app.use(morgan('tiny'));
 app.use([
     cors(),
     express.static("public"),

@@ -4,8 +4,10 @@ const user = require("../models/user");
 
 exports.findChat = async (req, res) => {
     try {
-        //res.send("Connected!");
+        console.log("Connected!");
         const { email1, email2 } = req.body;
+        console.log(req.body)
+        console.log('email1 is',email1);
         await Chat.find({$or:[{textedUserEmail: email1, receivedUserEmail: email2},{textedUserEmail: email2, receivedUserEmail: email1}]}, (err, chats) => {
             if (err) {
                 res.status(400).send(err);

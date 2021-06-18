@@ -51,11 +51,16 @@ function ChatPage(props) {
   useEffect(() => {
     if (socket == null) return;
 
-    socket.on("send-msg", (chatObj) => {
+    socket.on("send-msg",(chatObj) => {
       setchatData([...chatData, chatObj]);
       const sendermail=chatObj.textedUserEmail;
-      if(!prevUsers.filter(user=>{return user.email===sendermail}) && !newuser.filter(user=>{return user.email===sendermail}))
-          setrecentuser({"username":chatObj.textedUserName,"email":chatObj.textedUserEmail,"UpdatedAt":chatObj.time});
+      if(prevUsers.filter(user=>{return user.email===sendermail}) || newuser.filter(user=>{return user.email===sendermail}))
+      { 
+        
+        setrecentuser({"username":chatObj.textedUserName,"email":chatObj.textedUserEmail,"UpdatedAt":chatObj.time});
+        console.log({"username":chatObj.textedUserName,"email":chatObj.textedUserEmail,"UpdatedAt":chatObj.time});
+      }
+
 
 
     });
@@ -81,7 +86,6 @@ function ChatPage(props) {
     });
      return () => socket.off("typing");
   }, [socket]);
-
 
   const chatsocks = (chatObj) => {
     socket.emit("send-msg", chatObj, (cbData) => {
@@ -152,21 +156,24 @@ function ChatPage(props) {
   //click to select user
 
   const handleClick = async (Suser) => {
-    await setselectedUser(Suser);
-    
-    await sessionStorage.setItem("selecteduser",JSON.stringify(Suser));
-    
-    await axios
+     setselectedUser(Suser,()=>{
+      sessionStorage.setItem("selecteduser",JSON.stringify(Suser));
+      console.log(Suser);
+     axios
       .post("http://localhost:5000/findChat", {
         email1: JSON.parse(sessionStorage.getItem("User")).email,
         email2: selectedUser.email
       })
       .then((res) => {
+        console.log("got response",res.data)
         setchatData(res.data);   
       })
       .catch((err) => {
         console.log(err);
       });
+     });
+    
+    
   };
 const[typing,settyping]=useState("");
 //handle typing

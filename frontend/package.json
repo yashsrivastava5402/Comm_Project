@@ -14,7 +14,7 @@
     "delay": "^4.2.0",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
-    "react": "^16.8.6",
+    "react": "^16.14.0",
     "react-cookie": "^4.0.3",
     "react-dom": "^16.8.6",
     "react-google-button": "^0.7.2",
