@@ -52,7 +52,7 @@ const ChatCardsListing = (props) => {
 
   return (
     <div className="chat-cards-listing">
-    {props.recentuser?<div
+    {/* {props.recentuser?<div
  
  onClick={async () => {
    await props.handleClick(props.recentuser);
@@ -76,7 +76,7 @@ const ChatCardsListing = (props) => {
  <div className="action-btn">
    <FontAwesomeIcon icon={faChevronDown} />
  </div>
-</div>:null}
+</div>:null} */}
 
 
     {render}
@@ -87,8 +87,8 @@ const ChatCardsListing = (props) => {
          props.prevUsers.map((user, index) => {
        return <div
           key={index}
-          onClick={async () => {
-            await props.handleClick(user);
+          onClick={ () => {
+             props.handleClick(user);
             console.log("hi");
           }}
           className="card"

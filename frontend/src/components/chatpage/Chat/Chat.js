@@ -7,7 +7,7 @@ import moment from 'moment'
 
 const Chat = (props) => {
 
-  console.log(props.chatData)
+  // console.log(props.chatData)
   
  
   
@@ -20,7 +20,7 @@ if(chatObj.textedUserEmail===props.selectedUser.email || chatObj.receivedUserEma
 })
 
     const mymail = JSON.parse(sessionStorage.getItem("User")).email;
-    console.log(Chats);
+    // console.log(Chats);
     
 
     return (

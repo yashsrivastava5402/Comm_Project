@@ -43,10 +43,10 @@ function ChatPage(props) {
   });
 
 
-  const [recentuser,setrecentuser]=useState("");
+  // const [recentuser,setrecentuser]=useState("");
 
 
-  //handleprevUsers();
+ 
 
   useEffect(() => {
     if (socket == null) return;
@@ -54,12 +54,12 @@ function ChatPage(props) {
     socket.on("send-msg",(chatObj) => {
       setchatData([...chatData, chatObj]);
       const sendermail=chatObj.textedUserEmail;
-      if(prevUsers.filter(user=>{return user.email===sendermail}) || newuser.filter(user=>{return user.email===sendermail}))
-      { 
+      // // if(newuser.filter(user=>{return user.email===sendermail}) || prevUsers.filter(user=>{return user.email===sendermail}))
+      // // { 
         
-        setrecentuser({"username":chatObj.textedUserName,"email":chatObj.textedUserEmail,"UpdatedAt":chatObj.time});
-        console.log({"username":chatObj.textedUserName,"email":chatObj.textedUserEmail,"UpdatedAt":chatObj.time});
-      }
+      //   setrecentuser({"username":chatObj.textedUserName,"email":chatObj.textedUserEmail,"UpdatedAt":chatObj.time});
+      //   console.log({"username":chatObj.textedUserName,"email":chatObj.textedUserEmail,"UpdatedAt":chatObj.time});
+      // // }
 
 
 
@@ -70,9 +70,9 @@ function ChatPage(props) {
   }, [socket]);
 
 
- useEffect(()=>{
-  setrecentuser("");
- },[prevUsers])
+//  useEffect(()=>{
+//   setrecentuser("");
+//  },[prevUsers])
 
 
   useEffect(() => {
@@ -152,17 +152,17 @@ function ChatPage(props) {
     handleprevUsers();
   };
   //handle previous users
-
+  
   //click to select user
 
   const handleClick = async (Suser) => {
-     setselectedUser(Suser,()=>{
+     setselectedUser(Suser);
       sessionStorage.setItem("selecteduser",JSON.stringify(Suser));
-      console.log(Suser);
+  
      axios
       .post("http://localhost:5000/findChat", {
         email1: JSON.parse(sessionStorage.getItem("User")).email,
-        email2: selectedUser.email
+        email2: Suser.email
       })
       .then((res) => {
         console.log("got response",res.data)
@@ -171,7 +171,7 @@ function ChatPage(props) {
       .catch((err) => {
         console.log(err);
       });
-     });
+     
     
     
   };
@@ -204,7 +204,7 @@ const handletyping=()=>{
           newuser={newuser}
           prevUsers={prevUsers}
           typing={typing}
-          recentuser={recentuser}
+          // recentuser={recentuser}
         />
       </div>
       <div className="right-side">
