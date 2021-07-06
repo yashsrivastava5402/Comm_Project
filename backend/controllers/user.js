@@ -138,20 +138,40 @@ exports.getUsersList = async (req, res) => {
                 res.status(200).send(err);
             } else if (users.length !== 0) {
                 let flag = 0;
+                // for(let i = 0; i < users.length; i++){
+                //     await Chat.findOne({$or: [{ room: [email, users[i].email] }, {room: [users[i].email, email]}]}, async (err, foundChat) => {
+                //         if(err) {
+                //             console.log(err);
+                //         } else if(!foundChat){
+                //             flag = 1;
+                //             res.status(200).send(User);
+                //             //break;
+                //         }
+                //     });
+                //     if(flag === 1){
+                //         break;
+                //     }
+                // }
                 users.forEach( async (User) => {
-                    await Chat.findOne({ room: [email, User.email] }, async (err, foundChat) => {
+                    await Chat.findOne({$or: [{ room: [email, User.email] }, {room: [User.email, email]}]}, async (err, foundChat) => {
                         if(err) {
                             console.log(err);
                         } else if(!foundChat){
                             flag = 1;
+                            console.log(User);
                             res.status(200).send(User);
+                            return;
                         }
                     });
-                    if(flag === 0){
-                        console.log('bye');
-                        res.status(200).send('');
-                    }
+                    // if(flag === 0){
+                    //     console.log('bye');
+                    //     res.status(200).send('');
+                    // }
                 });
+                if(flag === 0){
+                    console.log('bye');
+                    res.status(200).send('');
+                }
                 // previousUsers.push(foundUser[i]);
                 // let i = 0, flag = 0;
                 // while (flag === 0) {
