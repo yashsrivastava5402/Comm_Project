@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Chat = require('../models/chat');
+const user = require("../models/user");
 
 exports.findUser = async (req, res) => {
     try {
@@ -152,15 +153,24 @@ exports.getUsersList = async (req, res) => {
                 //         break;
                 //     }
                 // }
+                //let userArray = [];
+                let z = 0;
                 users.forEach( async (User) => {
-                    await Chat.findOne({$or: [{ room: [email, User.email] }, {room: [User.email, email]}]}, async (err, foundChat) => {
+                    z++;
+                    await Chat.find({$or: [{ room: [email, User.email] }, {room: [User.email, email]}]}, async (err, foundchats) => {
                         if(err) {
                             console.log(err);
-                        } else if(!foundChat){
-                            flag = 1;
-                            console.log(User);
+                        }else if(foundchats.length === 0){
+                            // flag = 1;
+                            // console.log("User is: ");
+                            // console.log(User);
+                            // res.status(200).send(User);
+                            // //userArray.push(User);
+                            // return;
                             res.status(200).send(User);
                             return;
+                        }else if(z === users.length){
+                            res.status(200).send('');
                         }
                     });
                     // if(flag === 0){
@@ -168,10 +178,15 @@ exports.getUsersList = async (req, res) => {
                     //     res.status(200).send('');
                     // }
                 });
-                if(flag === 0){
-                    console.log('bye');
-                    res.status(200).send('');
-                }
+                // if(flag === 0){
+                //     console.log('bye');
+                //     res.status(200).send('');
+                // }
+                // }else{
+                //     let rand = Math.floor(Math.random()*(userArray.length-1));
+                //     console.log("rand");
+                //     res.status(200).send(userArray[rand]);
+                // }
                 // previousUsers.push(foundUser[i]);
                 // let i = 0, flag = 0;
                 // while (flag === 0) {

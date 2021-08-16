@@ -43,7 +43,10 @@ exports.getPreviousUsers = async (req, res) => {
         await Chat.find({$or:[{textedUserEmail: email},{receivedUserEmail: email}]}, (err, chats) => {
             if (err) {
                 res.status(500).send(err);
-            } else {
+            }else if(chats.length === 0){
+                res.status(200).send(userArray);
+            } 
+            else {
                 let length = chats.length;
                 let z = 0;
                 chats.forEach( async (chat) => {
