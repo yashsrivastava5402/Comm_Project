@@ -204,6 +204,7 @@ const handletyping=()=>{
           newuser={newuser}
           prevUsers={prevUsers}
           typing={typing}
+          chatData={chatData}
           // recentuser={recentuser}
         />
       </div>

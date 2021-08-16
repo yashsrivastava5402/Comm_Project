@@ -9,9 +9,28 @@ const ChatCardsListing = (props) => {
 
   // const [prevUsers, setprevUsers] = useState([]);
 
-
   let render=null;
-
+  const [chatData, setchatData] = useState([]);
+  const handleClick = async (Suser) => {
+    setselectedUser(Suser);
+     sessionStorage.setItem("selecteduser",JSON.stringify(Suser));
+ 
+    axios
+     .post("http://localhost:5000/findChat", {
+       email1: JSON.parse(sessionStorage.getItem("User")).email,
+       email2: Suser.email
+     })
+     .then((res) => {
+       console.log("got response",res.data)
+       setchatData(res.data);   
+     })
+     .catch((err) => {
+       console.log(err);
+     });
+    
+   
+   
+ };
  
   if((sessionStorage.getItem("search")==="true")  && (props.newuser === ""||props.newuser === null))
   {
@@ -37,9 +56,9 @@ const ChatCardsListing = (props) => {
     </div>
     <div className="card-detail">
       <h4 className="title">{props.newuser.username}</h4>
-      <p className="desc">Hi! Shaurya</p>
+      <p className="desc"></p>
     </div>
-    <div className="time">10:20 PM</div>
+    <div className="time"></div>
     <div className="action-btn">
       <FontAwesomeIcon icon={faChevronDown} />
     </div>
@@ -105,7 +124,7 @@ const ChatCardsListing = (props) => {
             <h4 className="title">{user.username}</h4>
             <p className="desc">{(props.typing!=="" && props.typing.email===user.email)?<i style = {{color:"#00ffff"}}>typing</i>:null}</p>
           </div>
-          <div className="time">{moment(user.UpdatedAt).format("ddd")} , {moment(user.UpdatedAt).format("LT")}</div>
+          <div className="time">{moment(chatObj.time).format("ddd")} , {moment(chatObj.time).format("LT")}</div>
           <div className="action-btn">
             <FontAwesomeIcon icon={faChevronDown} />
           </div>
