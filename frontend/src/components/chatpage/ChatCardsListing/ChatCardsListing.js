@@ -10,8 +10,7 @@ const ChatCardsListing = (props) => {
   // const [prevUsers, setprevUsers] = useState([]);
 
   let render=null;
-  let latestchat=[];
-  let i=-1;
+  
 
     
    
@@ -50,30 +49,8 @@ const ChatCardsListing = (props) => {
   </div>
   sessionStorage.getItem("search","false");
   }
-
-  if(props.prevUsers !== null && props.prevUsers !== "" )
-         {
-          props.prevUsers.map((user) => {
-
-            const chatData = [];
-          
-              axios
-               .post("http://localhost:5000/findChat", {
-                 email1: JSON.parse(sessionStorage.getItem("User")).email,
-                 email2: user.email
-               })
-               .then((res) => {
-                 console.log("got response",res.data)
-                 chatData=res.data;   
-               })
-               .catch((err) => {
-                 console.log(err);
-               });
-               latestchat.push(chatData[chatData.length-1]);
-
-              
-          })
-         }
+  
+  
 
 
   return (
@@ -112,7 +89,7 @@ const ChatCardsListing = (props) => {
       {props.prevUsers !== null && props.prevUsers !== "" ?
          props.prevUsers.map((user, index) => {
 
-           i++;
+         
        return <div
           key={index}
           onClick={ () => {
@@ -133,7 +110,7 @@ const ChatCardsListing = (props) => {
             <h4 className="title">{user.username}</h4>
             <p className="desc">{(props.typing!=="" && props.typing.email===user.email)?<i style = {{color:"#00ffff"}}>typing</i>:null}</p>
           </div>
-          <div className="time">{moment(latestchat[i].time).format("ddd")} , {moment(latestchat[i].time).format("LT")}</div>
+        
           
           <div className="action-btn">
             <FontAwesomeIcon icon={faChevronDown} />
