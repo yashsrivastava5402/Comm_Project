@@ -9,13 +9,108 @@ const saveChat = async (data, err) => {
             console.log(err);
         }
         const payload = data;
-        await Chat.insertMany(payload), (err) => {
+        // await Chat.find(
+        //     {
+        //         $or: 
+        //     [
+        //         {
+        //             User1: data.textedUserEmail, 
+        //             User2: data.receivedUserEmail
+        //         },
+        //         {
+        //             User2: data.textedUserEmail, 
+        //             User1: data.receivedUserEmail
+        //         }
+        //     ]
+        // }, 
+        // (err, chats) => {
+        //     if(err){
+        //         console.log(err);
+        //     }
+        //     else if(chats.length === 0){
+        //         const payload = {
+        //             User1: data.textedUserEmail,
+        //             User2: data.receivedUserEmail,
+        //             Messages: [data]
+        //         };
+        //         Chat.insertMany((payload), (err) => {
+        //             if(err){
+        //                 res.status(400).send(err);
+        //             }else{
+        //                 console.log(payload);
+        //             }
+        //         });
+        //     }else{
+        //         Chat.upda
+        //     }
+        // });
+        await Chat.insertMany(payload),( (err) => {
             if(err){
                 res.status(400).send(err);
             }else{
                 console.log(payload);
             }
-        }
+        });
+        await User.find({email: payload.textedUserEmail}, async (err, users) => {
+            if(err){
+                res.status(400).send(err);
+            }
+            else{
+                let flag = false;
+                for(let i = 0; i < users[0].prevUsers.length; i++){
+                    if(users[0].prevUsers[i].email === payload.receivedUserEmail){
+                        console.log("Mai Pohocha");
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag === false){
+                    await User.find({email: payload.receivedUserEmail}, async (err, newUsers) => {
+                        if(err){
+                            console.log(err);
+                        }else{
+                            console.log("Agar mai pohocha to mai gadha hoon");
+                            User.findOneAndUpdate({email: payload.textedUserEmail},{$push: {prevUsers: newUsers[0]}}, (err) => {
+                                if(err){
+                                    console.log(err);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+
+        await User.find({email: payload.receivedUserEmail}, async (err, users) => {
+            if(err){
+                res.status(400).send(err);
+            }
+            else{
+                let flag = false;
+                for(let i = 0; i < users[0].prevUsers.length; i++){
+                    if(users[0].prevUsers[i].email === payload.textedUserEmail){
+                        console.log("Mai Pohocha");
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag === false){
+                    await User.find({email: payload.textedUserEmail}, async (err, newUsers) => {
+                        if(err){
+                            console.log(err);
+                        }else{
+                            console.log("Agar mai pohocha to mai gadha hoon");                            
+                            User.findOneAndUpdate({email: payload.receivedUserEmail},{$push: {prevUsers: newUsers[0]}}, async (err) => {
+                                if(err){
+                                    console.log(err);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+        
     }catch(err){
         console.log(err);
     }

@@ -29,6 +29,10 @@ const userSchema = new Schema({
     UpdatedAt: {
         type: Number,
         required: [true]
+    },
+    prevUsers: {
+        type : Array,
+        required : [false]
     }
     // Chats: [
     //     {

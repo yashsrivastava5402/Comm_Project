@@ -134,11 +134,13 @@ exports.addUserLanguage = async (req, res) => {
 exports.getUsersList = async (req, res) => {
     try {
         const { email, NativeLanguage, LearningLanguage } = req.body;
+        // const myPromise = new Promise(function(resolve, reject)){
+
+        // }
         await User.find({ NativeLanguage: LearningLanguage, LearningLanguage: NativeLanguage }, async (err, users) => {
             if (err) {
                 res.status(200).send(err);
             } else if (users.length !== 0) {
-                let flag = 0;
                 // for(let i = 0; i < users.length; i++){
                 //     await Chat.findOne({$or: [{ room: [email, users[i].email] }, {room: [users[i].email, email]}]}, async (err, foundChat) => {
                 //         if(err) {
@@ -154,30 +156,68 @@ exports.getUsersList = async (req, res) => {
                 //     }
                 // }
                 //let userArray = [];
-                let z = 0;
-                users.forEach( async (User) => {
-                    z++;
-                    await Chat.find({$or: [{ room: [email, User.email] }, {room: [User.email, email]}]}, async (err, foundchats) => {
-                        if(err) {
-                            console.log(err);
-                        }else if(foundchats.length === 0){
-                            // flag = 1;
-                            // console.log("User is: ");
-                            // console.log(User);
-                            // res.status(200).send(User);
-                            // //userArray.push(User);
-                            // return;
-                            res.status(200).send(User);
-                            return;
-                        }else if(z === users.length){
-                            res.status(200).send('');
+                for(let j = 0; j < users.length; j++){
+                    if(users[j].email === email){
+                        continue;
+                    }
+                    let flag = false;
+                    for(let i = 0; i < users[j].prevUsers.length; i++){
+                        if(users[j].prevUsers[i].email === email){
+                            flag = true;
+                            break;
                         }
-                    });
-                    // if(flag === 0){
-                    //     console.log('bye');
-                    //     res.status(200).send('');
-                    // }
-                });
+                    }
+                    if(flag === false){
+                        res.status(200).send(users[j]);
+                        console.log("Hi");
+                        break;
+                    }
+                }
+                if(!res.headersSent){
+                    console.log("yup");
+                    res.status(200).send('');
+                }
+                // const myPromise = new Promise(async (resolve, reject) => {
+                //     let Users = [];
+                //     for(let i = 0; i <= users.length; i++){
+                //         if(i === users.length){
+                //             resolve(Users);
+                //         }
+                //         await Chat.find({$or: [{textedUserEmail: email, receivedUserEmail: User.email},
+                //             {textedUserEmail: User.email, receivedUserEmail: email}]}, async (err, foundchats) => {
+                //             if(err) {
+                //                 console.log(err);
+                //             }else if(foundchats.length === 0){
+                //                 // flag = 1;
+                //                 // console.log("User is: ");
+                //                 // console.log(User);
+                //                 // res.status(200).send(User);
+                //                 // //userArray.push(User);
+                //                 // return;
+                //                     Users.push(User);
+                //                     resolve(Users);
+                                
+                //              }
+                
+                //             // else if(z === users.length && flag === 0){
+                //             //     res.status(200).send('');
+                //             //     console.log("flag ");
+                //             //     console.log(flag);
+                //             // }
+                //         });
+                //         // if(flag === 0){
+                //         //     console.log('bye');
+                //         //     res.status(200).send('');
+                //         // }
+                //     }
+                    
+                // });
+                // myPromise.then((Users) => {
+                //     if(!res.headersSent){
+                //         console.log("Yo!");
+                //         res.status(200).send(Users.length > 0 ? Users[0] : null);
+                //     }
+                // });
                 // if(flag === 0){
                 //     console.log('bye');
                 //     res.status(200).send('');

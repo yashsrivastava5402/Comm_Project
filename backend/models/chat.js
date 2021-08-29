@@ -53,4 +53,19 @@ const chatSchema = new Schema({
     //{ timestamps: true }
 );
 
+// const chatSchema = new Schema({
+//     User1: {
+//         type: String,
+//         required: [true]
+//     },
+//     User2: {
+//         type: String,
+//         required: [true]
+//     },
+//     Messages: {
+//         type: Array,
+//         required: [true]
+//     }
+// });
+
 module.exports = mongoose.model('Chat', chatSchema);
