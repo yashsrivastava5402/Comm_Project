@@ -27,7 +27,7 @@ const Register = (props) => {
       {
         console.log("User Already Present");
         sessionStorage.setItem('User',JSON.stringify(response.data));
-        props.history.push("/validated")
+        props.history.push("/Regerror")
       }
       else {
 				console.log(response.data ?? response);
