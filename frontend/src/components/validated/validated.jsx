@@ -6,6 +6,7 @@ import Navy from "../hy/Navy/navbar";
 const Validated = (props) => {
     
     useEffect(() => {
+        console.log(sessionStorage.getItem('User'));
         if(sessionStorage.getItem('User')===null || sessionStorage.getItem('User')==='')
         props.history.replace("/login");
       

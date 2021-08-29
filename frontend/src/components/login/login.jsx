@@ -54,13 +54,13 @@ const Login = (props) => {
 
 		return false;
 	};
-	const responseGoogle = (response) => {
-		console.log(response);
-		if(response.error!="popup_closed_by_user")
-		props.history.push("/validated");
+	// const responseGoogle = (response) => {
+	// 	console.log(response);
+	// 	if(response.error!="popup_closed_by_user")
+	// 	props.history.push("/validated");
 		
 
-	};
+	// };
 
 	return (
 		<div className="base-container">
@@ -113,8 +113,8 @@ const Login = (props) => {
 					</form>
 					<GoogleLogin
 						clientId="194700546147-m2c5gi7n12jhnth922ljnlgnm3qeag11.apps.googleusercontent.com"
-						onSuccess={responseGoogle}
-						onFailure={responseGoogle}
+						// onSuccess={responseGoogle}
+						// onFailure={responseGoogle}
 						cookiePolicy={"single_host_origin"}
 						className="google_btn"
 					/>
