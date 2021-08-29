@@ -36,7 +36,7 @@ function ChatPage(props) {
     setchatData([...chatData, chatObj]);
   };
 
-  const socket = io("http://localhost:5000", {
+  const socket = io("https://linglot.herokuapp.com", {
     query: { token: id },
     reconnectionAttempts: 5,
     transports: ["websocket", "polling", "flashsocket"],
@@ -110,7 +110,7 @@ function ChatPage(props) {
   const handleprevUsers = async () => {
     await axios
       .post(
-        "http://localhost:5000/getPreviousUsers",
+        "https://linglot.herokuapp.com/getPreviousUsers",
         JSON.parse(sessionStorage.getItem("User"))
       )
       .then((response) => {
@@ -131,7 +131,7 @@ function ChatPage(props) {
   const handlesearchuser = async () => {
     await axios
       .post(
-        "http://localhost:5000/getUsersList",
+        "https://linglot.herokuapp.com/getUsersList",
         JSON.parse(sessionStorage.getItem("User"))
       )
       .then((response) => {
@@ -160,7 +160,7 @@ function ChatPage(props) {
       sessionStorage.setItem("selecteduser",JSON.stringify(Suser));
   
      axios
-      .post("http://localhost:5000/findChat", {
+      .post("https://linglot.herokuapp.com/findChat", {
         email1: JSON.parse(sessionStorage.getItem("User")).email,
         email2: Suser.email
       })

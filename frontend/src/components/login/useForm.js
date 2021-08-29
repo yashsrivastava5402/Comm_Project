@@ -27,7 +27,7 @@ const useForm = ( validate) => {
 		setIsSubmitting(true);
 		//console.log(values);
 		const data = await axios
-			.post("http://localhost:5000/addUser", values)
+			.post("https://linglot.herokuapp.com/addUser", values)
 			.then((response) => {
 				console.log(response);
 				

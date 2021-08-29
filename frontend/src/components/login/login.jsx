@@ -14,7 +14,7 @@ const Login = (props) => {
 
 	const handleprevUsers=async ()=>{
 
-		await axios.post("http://localhost:5000/getPreviousUsers", user)
+		await axios.post("https://linglot.herokuapp.com/getPreviousUsers", user)
 	   .then((response) => {
 		   console.log(response.data);
 		   

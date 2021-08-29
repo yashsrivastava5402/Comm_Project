@@ -27,7 +27,7 @@ const LoginForm = ( validate) => {
 		setIsSubmitting(true);
 		//console.log(values);
 		const data = await axios
-			.post("http://localhost:5000/findUser", values)
+			.post("https://linglot.herokuapp.com/findUser", values)
 			.then((response) => {
 				console.log(response);
 				

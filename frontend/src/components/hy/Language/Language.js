@@ -66,7 +66,7 @@ const Language = (props) => {
 
 	const handlesearchuser=async ()=>{
 
-		await axios.post("http://localhost:5000/getUsersList",user)
+		await axios.post("https://linglot.herokuapp.com/getUsersList",user)
 	   .then((response) => {
 		   console.log(response.data);
 		 if(response.data!==''){
@@ -97,7 +97,7 @@ const Language = (props) => {
         sessionStorage.setItem("User",JSON.stringify(user));
         
        await axios
-      .post("http://localhost:5000/addUserLanguage", user)
+      .post("https://linglot.herokuapp.com/addUserLanguage", user)
       .then((response) => {
           console.log(response.data);
            handlesearchuser();
