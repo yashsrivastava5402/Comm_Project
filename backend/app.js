@@ -30,6 +30,6 @@ const socketManager = require('./controllers/socket');
 io.on('connection', socketManager);
 // module.exports = io;
 
-server.listen("5000", function (req, res) {
+server.listen(process.env.PORT || "5000", function (req, res) {
     console.log("Server is running on port 5000.");
 });
