@@ -1,0 +1,371 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Communication-Project",
+        "description": "My Communication-Project Application API"
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API for users in the system"
+        },
+        {
+            "name": "Chats",
+            "description": "API for chats in the system"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/addUser": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Create new user in system",
+                "parameters": [
+                    {
+                        "name": "user-add",
+                        "in": "body",
+                        "description": "User that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/User-add"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New user is created",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/findUser": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Get a user in system with matched learning language and native language",
+                "parameters": [
+                    {
+                        "name": "user-find",
+                        "in": "body",
+                        "description": "User that we want to find",
+                        "schema": {
+                            "$ref": "#/definitions/User-find"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/addUserLanguage": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Add user native and learning language",
+                "parameters": [
+                    {
+                        "name": "Language",
+                        "in": "body",
+                        "description": "Languages that needs to be added",
+                        "schema": {
+                            "$ref": "#/definitions/User-language"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/getUsersList": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Get users having the matched language sets",
+                "parameters": [
+                    {
+                        "name": "Language",
+                        "in": "body",
+                        "description": "Languages and usernames of the user whose corresponding users requested",
+                        "schema": {
+                            "$ref": "#/definitions/User-language"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    }
+                }
+            }
+        },
+        "/findChat": {
+            "post": {
+                "tags": [
+                    "Chats"
+                ],
+                "description": "Get users chats",
+                "parameters": [
+                    {
+                        "name": "emails",
+                        "in": "body",
+                        "description": "emails of both the users",
+                        "schema": {
+                            "$ref": "#/definitions/User-emails"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Chats"
+                        }
+                    }
+                }
+            }
+        },
+        "/getPreviousUsers": {
+            "post": {
+                "tags": [
+                    "Chats"
+                ],
+                "description": "Get previous users",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "description": "email of the user",
+                        "schema": {
+                            "$ref": "#/definitions/User-email"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "required": [
+                "username",
+                "email",
+                "password",
+                "NativeLanguage",
+                "LearningLanguage",
+                "CreatedAt",
+                "UpdatedAt",
+                "prevUsers"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "NativeLanguage": {
+                    "type": "string"
+                },
+                "LearningLanguage": {
+                    "type": "string"
+                },
+                "CreatedAt": {
+                    "type": "number"
+                },
+                "UpdatedAt": {
+                    "type": "number"
+                },
+                "prevUsers": {
+                    "type": "array",
+                    "$ref": "#/definitions/User"
+                }
+            }
+        },
+        "User-add": {
+            "required": [
+                "username",
+                "email",
+                "password"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "User-find": {
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "User-language": {
+            "required": [
+                "email",
+                "NativeLanguage",
+                "LearningLanguage"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "NativeLanguage": {
+                    "type": "string"
+                },
+                "LearningLanguage": {
+                    "type": "string"
+                }
+            }
+        },
+        "User-email": {
+            "required": [
+                "email"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                }
+            }
+        },
+        "User-emails": {
+            "required": [
+                "email1",
+                "email2"
+            ],
+            "properties": {
+                "email1": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "email2": {
+                    "type": "string",
+                    "uniqueItems": true
+                }
+            }
+        },
+        "Chat": {
+            "required": [
+                "message",
+                "textedUserEmail",
+                "receivedUserEmail",
+                "textedUserName",
+                "receivedUserName",
+                "room",
+                "time"
+            ],
+            "properties": {
+                "Message": {
+                    "type": "string"
+                },
+                "textedUserEmail": {
+                    "type": "string"
+                },
+                "receivedUserEmail": {
+                    "type": "string"
+                },
+                "textedUserName": {
+                    "type": "string"
+                },
+                "receivedUserName": {
+                    "type": "string"
+                },
+                "room": [{
+                    "type": "string"
+                }, {
+                    "type": "string"
+                }],
+                "time": {
+                    "type": "number"
+                }
+            }
+        },
+        "Users": {
+            "type": "array",
+            "$ref": "#/definitions/User"
+        },
+        "Chats": {
+            "type": "array",
+            "$ref": "#/definitions/Chat"
+        }
+    }
+}
