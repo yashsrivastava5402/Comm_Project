@@ -10,6 +10,15 @@ const morgan=require('morgan');
 const app = express();
 const server = http.createServer(app);
 const io = module.exports.io = socket(server);
+
+const swaggerUi = require('swagger-ui-express'),
+swaggerDocument = require('./swagger.json');
+
+app.use(
+    '/api-docs',
+    swaggerUi.serve, 
+    swaggerUi.setup(swaggerDocument)
+);
 app.use(morgan('tiny'));
 app.use([
     cors(),
@@ -21,7 +30,7 @@ app.use([
 
 //app.use('/', routes);
 
-mongoose.connect('mongodb+srv://Yash:sedlyf1234@communicationprojectdb.yliul.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/Communication_ProjectDB', {useNewUrlParser: true, useUnifiedTopology: true});
 //mongoose.connect('mongodb://localhost:27017/chatDB',{useNewUrlParser: true, useUnifiedTopology: true});
 
 const socketManager = require('./controllers/socket');
